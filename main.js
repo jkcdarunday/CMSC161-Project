@@ -48,7 +48,7 @@ function init() {
   directionalLight.position.set(-60, 30, 60);
   scene.add(directionalLight);
   var light = new THREE.PointLight(0xffffff, 1, 100);
-  light.position.set(100, 50, 50);
+  light.position.set(60, 50, 50);
   scene.add(light);
   var ambientLight = new THREE.AmbientLight(0x111111);
   scene.add(ambientLight);
@@ -66,7 +66,8 @@ function init() {
     ambient: 0x050505,
     color: 0x0033ff,
     specular: 0x555555,
-    shininess: 90
+    shininess: 90,
+    emissive: 0x0077cc
   });
   phongCube = new THREE.Mesh(cubeGeometry, phongCubeMaterial);
   phongCube.position.set(100, 50, -50);
