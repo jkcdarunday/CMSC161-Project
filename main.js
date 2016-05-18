@@ -8,7 +8,7 @@ animate();
 function init() {
   // Create scene
   scene = new THREE.Scene();
-  window.addEventListener( 'resize', onWindowResize, false );
+  window.addEventListener('resize', onWindowResize, false);
   // Setup camera
   var SCREEN_WIDTH = window.innerWidth,
     SCREEN_HEIGHT = window.innerHeight;
@@ -55,40 +55,62 @@ function init() {
 
   // Add Objects
   var cubeGeometry = new THREE.CubeGeometry(100, 100, 100, 1, 1, 1);
-  var cubeMaterial =  new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture('images/allspark.jpg') } );
-  
- var face1 = [new THREE.Vector2(0.333, 0), new THREE.Vector2(0.666, 0), new THREE.Vector2(0.666, 0.25), new THREE.Vector2(0.333, 0.25)];
-var face2 = [new THREE.Vector2(0.333, 0.25), new THREE.Vector2(0.666, 0.25), new THREE.Vector2(0.666, 0.5), new THREE.Vector2(0.333, 0.5)];
-var face3 = [new THREE.Vector2(0.333, 0.5), new THREE.Vector2(0.666, 0.5), new THREE.Vector2(0.666, 0.75), new THREE.Vector2(0.333, 0.75)];
-var face4 = [new THREE.Vector2(0, 0.5), new THREE.Vector2(0.333, 0.5), new THREE.Vector2(0.333, 0.75), new THREE.Vector2(0, 0.75)];
-var face5 = [new THREE.Vector2(0.666, 0.5), new THREE.Vector2(1, 0.5), new THREE.Vector2(1, 0.75), new THREE.Vector2(0.666, 0.75)];
-var face6 = [new THREE.Vector2(0.333, 0.75), new THREE.Vector2(0.666, 0.75), new THREE.Vector2(0.666, 1), new THREE.Vector2(0.333, 1)];
+  var cubeMaterial = new THREE.MeshLambertMaterial({
+    map: THREE.ImageUtils.loadTexture('images/allspark.jpg')
+  });
+
+  var face1 = [new THREE.Vector2(0.666, 0.5), new THREE.Vector2(1, 0.5), new THREE
+    .Vector2(1, 0.75), new THREE.Vector2(0.666, 0.75)
+  ];
+  var face2 = [new THREE.Vector2(0.333, 0.75), new THREE.Vector2(0, 0.75), new THREE
+    .Vector2(0, 0.501), new THREE.Vector2(0.333, 0.501)
+  ];
+  var face3 = [new THREE.Vector2(0.333, 0.75), new THREE.Vector2(0.333, 0.5),
+    new THREE.Vector2(0.666, 0.5), new THREE.Vector2(0.666, 0.75)
+  ];
+  var face4 = [new THREE.Vector2(0.333, 0.25), new THREE.Vector2(0.333, 0), new THREE
+    .Vector2(0.666, 0), new THREE.Vector2(0.666, 0.25)
+  ];
+  var face5 = [new THREE.Vector2(0.333, 0.5), new THREE.Vector2(0.333, 0.25),
+    new THREE.Vector2(0.666, 0.25), new THREE.Vector2(0.666, 0.5)
+  ];
+  var face6 = [new THREE.Vector2(0.666, 0.75), new THREE.Vector2(0.666, 1), new THREE
+    .Vector2(0.333, 1), new THREE.Vector2(0.333, 0.75)
+  ];
   cubeGeometry.faceVertexUvs[0] = [];
-  
-cubeGeometry.faceVertexUvs[0][0] = [ face1[0], face1[1], face1[3] ];
-cubeGeometry.faceVertexUvs[0][1] = [ face1[1], face1[2], face1[3] ];
-  
-cubeGeometry.faceVertexUvs[0][2] = [ face2[0], face2[1], face2[3] ];
-cubeGeometry.faceVertexUvs[0][3] = [ face2[1], face2[2], face2[3] ];
-  
-cubeGeometry.faceVertexUvs[0][4] = [ face3[0], face3[1], face3[3] ];
-cubeGeometry.faceVertexUvs[0][5] = [ face3[1], face3[2], face3[3] ];
-  
-cubeGeometry.faceVertexUvs[0][6] = [ face4[0], face4[1], face4[3] ];
-cubeGeometry.faceVertexUvs[0][7] = [ face4[1], face4[2], face4[3] ];
-  
-cubeGeometry.faceVertexUvs[0][8] = [ face5[0], face5[1], face5[3] ];
-cubeGeometry.faceVertexUvs[0][9] = [ face5[1], face5[2], face5[3] ];
-  
-cubeGeometry.faceVertexUvs[0][10] = [ face6[0], face6[1], face6[3] ];
-cubeGeometry.faceVertexUvs[0][11] = [ face6[1], face6[2], face6[3] ];
-  
-  
+
+  // Right
+  cubeGeometry.faceVertexUvs[0][0] = [face1[0], face1[1], face1[3]];
+  cubeGeometry.faceVertexUvs[0][1] = [face1[1], face1[2], face1[3]];
+
+  // Left
+  cubeGeometry.faceVertexUvs[0][2] = [face2[0], face2[1], face2[3]];
+  cubeGeometry.faceVertexUvs[0][3] = [face2[1], face2[2], face2[3]];
+
+  // Top
+  cubeGeometry.faceVertexUvs[0][4] = [face3[0], face3[1], face3[3]];
+  cubeGeometry.faceVertexUvs[0][5] = [face3[1], face3[2], face3[3]];
+
+  // Bot
+  cubeGeometry.faceVertexUvs[0][6] = [face4[0], face4[1], face4[3]];
+  cubeGeometry.faceVertexUvs[0][7] = [face4[1], face4[2], face4[3]];
+
+  // Front
+  cubeGeometry.faceVertexUvs[0][8] = [face5[0], face5[1], face5[3]];
+  cubeGeometry.faceVertexUvs[0][9] = [face5[1], face5[2], face5[3]];
+
+  // Back
+  cubeGeometry.faceVertexUvs[0][10] = [face6[0], face6[1], face6[3]];
+  cubeGeometry.faceVertexUvs[0][11] = [face6[1], face6[2], face6[3]];
+
+
   cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
   cube.position.set(-100, 50, -50);
   scene.add(cube);
 
-  var phongCubeMaterial = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('images/crate.jpg') } );
+  var phongCubeMaterial = new THREE.MeshPhongMaterial({
+    map: THREE.ImageUtils.loadTexture('images/crate.jpg')
+  });
   phongCube = new THREE.Mesh(cubeGeometry, phongCubeMaterial);
   phongCube.position.set(100, 50, -50);
   scene.add(phongCube);
@@ -145,10 +167,10 @@ function loadOcean(renderer, camera, scene, directionalLight) {
 }
 
 function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize( window.innerWidth, window.innerHeight );
-    render();
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  render();
 }
 
 function loadSkyBox(scene) {
