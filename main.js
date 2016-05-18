@@ -45,18 +45,21 @@ function init() {
 
   // Lighting
   var directionalLight = new THREE.DirectionalLight(0xffff55, 1);
-  directionalLight.position.set(-60, 30, 60);
+  directionalLight.position.set(-60, 30, 70);
   scene.add(directionalLight);
-  var light = new THREE.PointLight(0xffffff, 1, 100);
-  light.position.set(60, 50, 50);
+  var light = new THREE.PointLight(0xffffff, 1, 1000, 2);
+  light.position.set(-190, 50, 180);
   scene.add(light);
-  var ambientLight = new THREE.AmbientLight(0x111111);
+  var ambientLight = new THREE.AmbientLight(0x333333);
   scene.add(ambientLight);
 
   // Add Objects
   var cubeGeometry = new THREE.CubeGeometry(100, 100, 100, 1, 1, 1);
-  var cubeMaterial = new THREE.MeshLambertMaterial({
-    map: THREE.ImageUtils.loadTexture('images/allspark.jpg')
+  var cubeMaterial = new THREE.MeshPhongMaterial({
+    map: THREE.ImageUtils.loadTexture('images/allspark.jpg'),
+    normalMap: THREE.ImageUtils.loadTexture('images/allsparknormals.jpg'),
+    normalScale: new THREE.Vector2(-0.4, -0.4),
+    shininess: 10
   });
 
   var face1 = [new THREE.Vector2(0.666, 0.5), new THREE.Vector2(1, 0.5), new THREE
@@ -108,16 +111,19 @@ function init() {
   cube.position.set(-100, 50, -50);
   scene.add(cube);
 
-  var phongCubeMaterial = new THREE.MeshPhongMaterial({
-    map: THREE.ImageUtils.loadTexture('images/crate.jpg')
+  var tesseractCubeMaterial = new THREE.MeshLambertMaterial({
+    color: 0x0088ff,
+    emissive: 0x0088ff,
   });
-  phongCube = new THREE.Mesh(cubeGeometry, phongCubeMaterial);
-  phongCube.position.set(100, 50, -50);
-  scene.add(phongCube);
+  tesseractCube = new THREE.Mesh(cubeGeometry, tesseractCubeMaterial);
+  tesseractCube.position.set(100, 50, -50);
+  scene.add(tesseractCube);
+  var tesseractLight = new THREE.PointLight(0x0088ff, 1, 1000, 2);
+  tesseractLight.position.set(100, 50, -50);
+  scene.add(tesseractLight);
 
   loadOcean(renderer, camera, scene, directionalLight);
   loadSkyBox(scene);
-  //initMap(scene);
 
   var axes = new THREE.AxisHelper(100);
   scene.add(axes);
