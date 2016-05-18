@@ -19,7 +19,7 @@ function init() {
   camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
   // add the camera to the scene
   scene.add(camera);
-  camera.position.set(400, 550, 800);
+  camera.position.set(450, 250, 800);
   camera.lookAt(scene.position);
 
   // Renderer
@@ -47,6 +47,9 @@ function init() {
   var directionalLight = new THREE.DirectionalLight(0xffff55, 1);
   directionalLight.position.set(-60, 30, 60);
   scene.add(directionalLight);
+  var light = new THREE.PointLight(0xffffff, 1, 100);
+  light.position.set(100, 50, 50);
+  scene.add(light);
   var ambientLight = new THREE.AmbientLight(0x111111);
   scene.add(ambientLight);
 
@@ -58,6 +61,16 @@ function init() {
   cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
   cube.position.set(-100, 50, -50);
   scene.add(cube);
+
+  var phongCubeMaterial = new THREE.MeshPhongMaterial({
+    ambient: 0x050505,
+    color: 0x0033ff,
+    specular: 0x555555,
+    shininess: 90
+  });
+  phongCube = new THREE.Mesh(cubeGeometry, phongCubeMaterial);
+  phongCube.position.set(100, 50, -50);
+  scene.add(phongCube);
 
   loadOcean(renderer, camera, scene, directionalLight);
   loadSkyBox(scene);
