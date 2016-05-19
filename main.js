@@ -108,7 +108,7 @@ function init() {
 
 
   cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-  cube.position.set(-100, 50, -50);
+  cube.position.set(-160, 50, -50);
   scene.add(cube);
 
   var tesseractCubeMaterial = new THREE.MeshLambertMaterial({
@@ -116,17 +116,103 @@ function init() {
     emissive: 0x0088ff,
   });
   tesseractCube = new THREE.Mesh(cubeGeometry, tesseractCubeMaterial);
-  tesseractCube.position.set(100, 50, -50);
+  tesseractCube.position.set(160, 50, -50);
   scene.add(tesseractCube);
-  var tesseractLight = new THREE.PointLight(0x0088ff, 1, 1000, 2);
-  tesseractLight.position.set(100, 50, -50);
+  var tesseractLight = new THREE.PointLight(0x0088ff, 1, 100, 2);
+  tesseractLight.position.set(160, 50, -50);
   scene.add(tesseractLight);
 
   loadOcean(renderer, camera, scene, directionalLight);
   loadSkyBox(scene);
 
-  var axes = new THREE.AxisHelper(100);
-  scene.add(axes);
+  //var axes = new THREE.AxisHelper(100);
+  //scene.add(axes);
+
+  // texture
+
+  var manager = new THREE.LoadingManager();
+  manager.onProgress = function(item, loaded, total) {
+
+    console.log(item, loaded, total);
+
+  };
+
+  var texture = new THREE.Texture();
+
+  var onProgress = function(xhr) {
+    if (xhr.lengthComputable) {
+      var percentComplete = xhr.loaded / xhr.total * 100;
+      console.log(Math.round(percentComplete, 2) + '% downloaded');
+    }
+  };
+
+  var onError = function(xhr) {};
+
+
+  var loader = new THREE.ImageLoader(manager);
+  loader.load('textures/UV_Grid_Sm.jpg', function(image) {
+
+    texture.image = image;
+    texture.needsUpdate = true;
+
+  });
+
+
+  var onProgress = function(xhr) {
+    if (xhr.lengthComputable) {
+      var percentComplete = xhr.loaded / xhr.total * 100;
+      console.log(Math.round(percentComplete, 2) + '% downloaded');
+    }
+  };
+
+  var onError = function(xhr) {};
+
+  THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader());
+
+  (function() {
+    var mtlLoader = new THREE.MTLLoader();
+    mtlLoader.setBaseUrl('spacesuit/');
+    mtlLoader.setPath('spacesuit/');
+    mtlLoader.load('Spacesuit.mtl', function(materials) {
+
+      materials.preload();
+
+      var objLoader = new THREE.OBJLoader();
+      objLoader.setMaterials(materials);
+      objLoader.setPath('spacesuit/');
+      objLoader.load('Spacesuit.obj', function(object) {
+        object.position.y = -110;
+        object.position.z = -50;
+        object.scale.x = object.scale.y = object.scale.z = 100;
+        scene.add(object);
+
+      }, onProgress, onError);
+
+    });
+  })();
+
+  (function() {
+    var mtlLoader = new THREE.MTLLoader();
+    mtlLoader.setBaseUrl('ww2/');
+    mtlLoader.setPath('ww2/');
+    mtlLoader.load('house.mtl', function(materials) {
+
+      materials.preload();
+
+      var objLoader = new THREE.OBJLoader();
+      objLoader.setMaterials(materials);
+      objLoader.setPath('ww2/');
+      objLoader.load('house.obj', function(object) {
+        object.position.y = -560;
+        object.position.z = -4900;
+        object.scale.x = object.scale.y = object.scale.z = 10;
+        scene.add(object);
+
+      }, onProgress, onError);
+
+    });
+  })();
+
 }
 
 function animate() {
